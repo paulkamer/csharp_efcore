@@ -9,6 +9,7 @@ namespace Domain.Models
         [Key]
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
