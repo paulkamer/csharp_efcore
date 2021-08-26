@@ -51,5 +51,27 @@ namespace DataAccess.Services
 
       return authors;
     }
+
+    public bool AddTag(Tag tag)
+    {
+      _context.Tags.Add(tag);
+      int rowsAdded = _context.SaveChanges();
+
+      return rowsAdded == 1;
+    }
+
+    public async Task<List<TagDto>> GetAllTags()
+    {
+        List<TagDto> tags = await (
+          from t in _context.Tags.AsNoTracking()
+          select new TagDto
+          {
+              Id = t.Id,
+              Name = t.Name,
+          })
+          .ToListAsync();
+
+      return tags;
+    }
   }
 }

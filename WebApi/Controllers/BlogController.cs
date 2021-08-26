@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DataAccess.Services;
 using Domain.DTOs;
+using Domain.Models;
 
 namespace WebApi.Controllers
 {
@@ -29,10 +30,26 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("authors")]
-        public async Task<IEnumerable<AuthorDto>> GetAuthors()
+        [Route("author/all")]
+        public async Task<IEnumerable<AuthorDto>> GetAllAuthors()
         {
             return await _blogService.GetAllAuthors();
+        }
+
+        [HttpGet]
+        [Route("tag/all")]
+        public async Task<IEnumerable<TagDto>> GetAllTags()
+        {
+            return await _blogService.GetAllTags();
+        }
+
+        [HttpPost]
+        [Route("tag")]
+        public IActionResult AddTag(Tag tag)
+        {
+            var result = _blogService.AddTag(tag);
+
+            return result ? Ok() : BadRequest();
         }
     }
 }

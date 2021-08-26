@@ -12,5 +12,8 @@ namespace DataAccess
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Author> Authors { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Tagging> Taggings { get; set; }
     }
 }
