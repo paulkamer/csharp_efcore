@@ -27,6 +27,7 @@ namespace DataAccess.Services
               Id = p.Id,
               Title = p.Title,
               CreatedAt = p.CreatedAt,
+              UpdatedAt = p.UpdatedAt,
               Author = new AuthorDto {
                 Id = p.Author.Id,
                 Name = p.Author.Name
@@ -35,6 +36,32 @@ namespace DataAccess.Services
           .ToListAsync();
 
       return posts;
+    }
+
+    public bool AddPost(Post post)
+    {
+      var author = _context.Authors.OrderBy(a => a.Id).FirstOrDefault();
+      post.Author = author;
+
+      _context.Posts.Add(post);
+      int rowsAdded = _context.SaveChanges();
+
+      return rowsAdded == 1;
+    }
+
+    public bool DeletePost(int postId)
+    {
+      var post = _context.Posts.SingleOrDefault(p => p.Id == postId);
+
+      if (post != null)
+      {
+        System.Console.WriteLine("Post exists, removing...");
+
+        _context.Posts.Remove(post);
+        _context.SaveChanges();
+      }
+
+      return true;
     }
 
     public async Task<List<AuthorDto>> GetAllAuthors()

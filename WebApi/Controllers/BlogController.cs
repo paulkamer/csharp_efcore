@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +27,22 @@ namespace WebApi.Controllers
         public async Task<IEnumerable<PostDto>> GetPosts()
         {
             return await _blogService.GetAllPosts();
+        }
+
+        [HttpPost]
+        [Route("post")]
+        public IActionResult AddPost(Post post)
+        {
+            var result = _blogService.AddPost(post);
+
+            return result ? Ok() : BadRequest();
+        }
+
+        [HttpDelete]
+        [Route("post/{postId}")]
+        public void DeletePost(int postId)
+        {
+            _blogService.DeletePost(postId);
         }
 
         [HttpGet]

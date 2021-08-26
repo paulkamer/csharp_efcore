@@ -9,6 +9,6 @@ namespace Domain.DTOs
         public string Name { get; set; }
         public string Avatar { get; set; }
 
-        public virtual List<PostDto> Posts { get; set; }
+        public List<PostDto> Posts { get; set; }
     }
 }

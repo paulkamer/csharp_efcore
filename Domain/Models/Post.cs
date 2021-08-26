@@ -16,6 +16,6 @@ namespace Domain.Models
         public string Body { get; set; }
 
         [Required]
-        public virtual Author Author { get; set; }
+        public Author Author { get; set; }
     }
 }
